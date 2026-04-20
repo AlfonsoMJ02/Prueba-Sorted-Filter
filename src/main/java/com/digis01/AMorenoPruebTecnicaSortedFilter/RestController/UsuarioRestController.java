@@ -98,7 +98,7 @@ public class UsuarioRestController {
             )
     )
     @PostMapping("/Add")
-    public ResponseEntity<?> Add(@RequestHeader("Authorization") String authHeader, @RequestBody Usuario usuario) {
+    public ResponseEntity<?> Add(@RequestHeader("Authorization") String authHeader, @Valid @RequestBody Usuario usuario) {
 
         if (!validar(authHeader)) {
             return ResponseEntity.status(401).body("No autorizado");
@@ -112,7 +112,7 @@ public class UsuarioRestController {
             return ResponseEntity.status(400).body("No se pudo insertar el usuario");
         }
     }
-    
+
     @Operation(summary = "Buscar o ordenar usuarios", description = "Permite buscar a usarios con el metodo Filter SCIM ejemplo: "
             + "/Usuario?filter=[email|id|name|phone|tax_id|created_at]+[co|eq|sw|ew]+[valor] "
             + "Y ordenar alfabeticamente con SortedBy ejemplo: /Usuario?sortedBy=[email|id|name|phone|tax_id|created_at]")
@@ -158,15 +158,15 @@ public class UsuarioRestController {
             return ResponseEntity.status(404).body("Usuario no encontrado");
         }
     }
-    
+
     @PatchMapping("/Update/{id}")
-    public ResponseEntity<?> UpdateUsuario(@RequestHeader("Authorization") String authHeader, @PathVariable UUID id, @Valid @RequestBody Usuario usuario){
+    public ResponseEntity<?> UpdateUsuario(@RequestHeader("Authorization") String authHeader, @PathVariable UUID id, @Valid @RequestBody Usuario usuario) {
         if (!validar(authHeader)) {
             return ResponseEntity.status(401).body("No autorizado");
         }
-        
+
         boolean actualizar = service.updateUsuario(id, usuario);
-        
+
         if (actualizar) {
             return ResponseEntity.ok("Usuario actualizado correctamente");
         } else {

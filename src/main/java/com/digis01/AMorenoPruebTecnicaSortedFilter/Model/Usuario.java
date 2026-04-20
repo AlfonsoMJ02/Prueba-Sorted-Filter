@@ -11,13 +11,11 @@ public class Usuario {
     private UUID id;
     private String email;
     private String name;
-    @Pattern(regexp = "^\\d{2}\\+\\d{10}$", message = "Debe tener 2 digitosseguidos de un + y escribir los 10 digitos de tu numero")
+    @Pattern(regexp = "^(\\+\\d{1,3}\\s?)?[0-9]{10}$", message = "Este formato de numero no es valido")
     private String phone;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
     @Pattern(regexp = "^[A-Z]{4}\\d{6}[A-Z0-9]{3}$", message = "No cumple con la estructura de un RFC")
-    @Size(max = 13, message = "El taxId debe tener exactamente 13 caracteres en formato RFC")
-    @Size(min = 13, message = "El taxId minimo debe tener 13 caracteres en formato RFC")
     private String taxId;
     private LocalDateTime createdAt;
     private List<Direccion> addresses;
